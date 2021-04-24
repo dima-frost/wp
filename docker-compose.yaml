@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: q1w2e3
+      WORDPRESS_DB_NAME: wp
+    volumes:
+      - "./:/var/www/html"
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: wp
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: q1w2e3
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - "./base:/var/lib/base"
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
